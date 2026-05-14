@@ -1,0 +1,19 @@
+[package]
+name = "mietos"
+version = "0.1.0"
+edition = "2024"
+description = "Local-first desktop operator for authorized cybersecurity labs, audits, OSINT, and defensive investigation workflows."
+license = "MIT"
+repository = "https://github.com/RubenSwidzinskiPXL/mietos"
+keywords = ["cybersecurity", "llm", "ctf", "osint", "egui"]
+categories = ["gui", "command-line-utilities"]
+
+[dependencies]
+anyhow = "1.0"
+crossbeam-channel = "0.5"
+eframe = "0.33"
+egui = "0.33"
+reqwest = { version = "0.12", default-features = false, features = ["blocking", "json", "rustls-tls"] }
+rusqlite = { version = "0.37", features = ["bundled"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
