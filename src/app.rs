@@ -9,7 +9,7 @@ use crate::model::ModelClient;
 use crate::osint;
 use crate::planner::{self, PlannedStage};
 use crate::playbooks;
-use crate::settings::AppSettings;
+use crate::settings::{AppSettings, SafetyMode, default_config_path};
 use crate::strategy::{self, ChallengeKind};
 use crate::thm;
 use crate::tools;
@@ -93,7 +93,7 @@ impl OperatorApp {
     pub fn new(_cc: &eframe::CreationContext<'_>) -> Self {
         apply_dark_terminal_theme(&_cc.egui_ctx);
         let (tx, rx) = unbounded();
-        let settings = AppSettings::default();
+        let settings = AppSettings::load_or_default();
         let memory_store = MemoryStore::open(&settings.memory_path).ok();
         let audit_path = std::env::current_dir()
             .map(|path| path.display().to_string())
@@ -1222,6 +1222,15 @@ impl OperatorApp {
         dark_singleline(ui, &mut self.settings.model_name);
         ui.label("Kali WSL distro");
         dark_singleline(ui, &mut self.settings.kali_distro);
+        ui.label("Safety mode");
+        egui::ComboBox::from_id_salt("safety-mode")
+            .selected_text(self.settings.safety_mode.label())
+            .show_ui(ui, |ui| {
+                for mode in SafetyMode::ALL {
+                    ui.selectable_value(&mut self.settings.safety_mode, mode, mode.label());
+                }
+            });
+        ui.label(self.settings.safety_mode.description());
         ui.label("TryHackMe Enterprise API key (usually blank)");
         dark_singleline(ui, &mut self.settings.tryhackme_api_key);
         ui.label("Normal TryHackMe users generally leave this empty and paste task text manually.");
@@ -1239,6 +1248,15 @@ impl OperatorApp {
         ui.add(
             egui::Slider::new(&mut self.settings.goal_stall_limit, 1..=10).text("goal stall limit"),
         );
+        ui.horizontal_wrapped(|ui| {
+            if ui.button("Save Settings").clicked() {
+                match self.settings.save_to_path(default_config_path()) {
+                    Ok(()) => self.status = "Settings saved to mietos.toml".to_string(),
+                    Err(err) => self.status = format!("Settings save failed: {err}"),
+                }
+            }
+            ui.label(format!("Config: {}", default_config_path().display()));
+        });
         ui.separator();
         if ui.button("OpenVPN from Kali config path").clicked() {
             self.status = "Paste the WSL path into the command box, for example: openvpn /mnt/c/Users/Example/Downloads/file.ovpn".to_string();
