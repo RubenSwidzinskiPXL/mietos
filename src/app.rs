@@ -9,6 +9,7 @@ use crate::model::ModelClient;
 use crate::osint;
 use crate::planner::{self, PlannedStage};
 use crate::playbooks;
+use crate::runtime::RuntimeJobs;
 use crate::settings::{AppSettings, SafetyMode, default_config_path};
 use crate::strategy::{self, ChallengeKind};
 use crate::thm;
@@ -83,6 +84,7 @@ pub struct OperatorApp {
     local_vpn_status: String,
     local_vpn_checked_once: bool,
     authorized_scope_confirmed: bool,
+    runtime_jobs: RuntimeJobs,
     audit_path: String,
     osint_target: String,
     osint_file_or_url: String,
@@ -141,6 +143,7 @@ impl OperatorApp {
             local_vpn_status: "unknown".to_string(),
             local_vpn_checked_once: false,
             authorized_scope_confirmed: false,
+            runtime_jobs: RuntimeJobs::default(),
             audit_path,
             osint_target: String::new(),
             osint_file_or_url: String::new(),
@@ -191,27 +194,21 @@ impl OperatorApp {
                     self.findings.push(finding);
                 }
                 AppEvent::JobStarted(job) => {
-                    self.running_jobs += 1;
-                    self.active_job = job.clone();
+                    let snapshot = self.runtime_jobs.start(job.clone());
+                    self.running_jobs = snapshot.running_jobs;
+                    self.active_job = snapshot.active_job;
                     self.trace(&format!("[job started] {job}"));
-                    self.status = format!("running {job} ({} active)", self.running_jobs);
+                    self.status = snapshot.status_message;
                 }
                 AppEvent::JobFinished(job) => {
-                    self.running_jobs = self.running_jobs.saturating_sub(1);
+                    let snapshot = self.runtime_jobs.finish(&job);
+                    self.running_jobs = snapshot.running_jobs;
                     self.trace(&format!(
                         "[job finished] {job}; {} active",
                         self.running_jobs
                     ));
-                    self.status = if self.running_jobs == 0 {
-                        format!("{job} finished")
-                    } else {
-                        format!("{job} finished; {} still running", self.running_jobs)
-                    };
-                    self.active_job = if self.running_jobs == 0 {
-                        "idle".to_string()
-                    } else {
-                        format!("{} active", self.running_jobs)
-                    };
+                    self.status = snapshot.status_message;
+                    self.active_job = snapshot.active_job;
                     if self.running_jobs == 0 && self.workflow_active {
                         let (answers, findings) = self.extract_findings();
                         self.adapt_queue_after_stage(answers, findings);
@@ -1215,6 +1212,7 @@ impl eframe::App for OperatorApp {
                     self.answers.clear();
                     self.findings.clear();
                     self.running_jobs = 0;
+                    self.runtime_jobs = RuntimeJobs::default();
                     self.workflow_active = false;
                     self.smart_run_active = false;
                     self.goal_active = false;
