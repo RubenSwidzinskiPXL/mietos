@@ -394,7 +394,7 @@ mod tests {
             title: "Benign".to_string(),
             task_text: "Identify and investigate an infected host.\nWhat is the URL that the infected host connected to?\nWhich user from HR executed a LOLBIN?".to_string(),
             notes: "Credentials found so far: none\nPotential username:password appears in the room template.".to_string(),
-            target: "10.129.187.71".to_string(),
+            target: "192.0.2.71".to_string(),
             ..Challenge::default()
         };
 

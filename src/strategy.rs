@@ -313,7 +313,7 @@ mod tests {
         let challenge = Challenge {
             title: "Benign".to_string(),
             task_text: "Identify and investigate an infected host.\nWhich user ran the scheduled task?\nWhat URL did the infected host connect to?".to_string(),
-            target: "10.129.187.71".to_string(),
+            target: "192.0.2.71".to_string(),
             ..Challenge::default()
         };
 
@@ -327,10 +327,10 @@ mod tests {
             task_text:
                 "Identify and investigate an infected host.\nWhich lolbin downloaded the payload?"
                     .to_string(),
-            target: "10.129.187.71".to_string(),
+            target: "192.0.2.71".to_string(),
             ..Challenge::default()
         };
-        let terminal = "[mietos] No responsive web base found\n[mietos-web-timeout] http://10.129.187.71/\ntcpdump captured 0 packets";
+        let terminal = "[mietos] No responsive web base found\n[mietos-web-timeout] http://192.0.2.71/\ntcpdump captured 0 packets";
 
         let gap = evidence_gap(&challenge, terminal, 0, 0);
 

@@ -2627,7 +2627,7 @@ mod tests {
             current_stage: "Deep Web Scan",
             running_jobs: 1,
             queued_commands: 2,
-            target: "10.129.187.71",
+            target: "192.0.2.71",
             room: "https://tryhackme.com/room/benign",
             title: "Benign",
             model_endpoint: "http://127.0.0.1:18080/v1/chat/completions",
@@ -2650,7 +2650,7 @@ mod tests {
         });
 
         assert_eq!(json["active_job"], "Deep Web Scan");
-        assert_eq!(json["target"], "10.129.187.71");
+        assert_eq!(json["target"], "192.0.2.71");
         assert_eq!(json["queued_commands"], 2);
         assert_eq!(json["goal_active"], true);
         assert_eq!(json["goal_remaining"], 4);
@@ -2883,7 +2883,7 @@ mod tests {
     fn case_file_context_prioritizes_findings_answers_and_missing_questions() {
         let challenge = crate::challenge::Challenge {
             title: "Benign".to_string(),
-            target: "10.129.187.71".to_string(),
+            target: "192.0.2.71".to_string(),
             task_text: "What is the suspicious path?\nWhat is the flag?".to_string(),
             ..crate::challenge::Challenge::default()
         };
@@ -2928,7 +2928,7 @@ mod tests {
     fn run_lesson_learns_to_pivot_when_web_times_out_on_siem_target() {
         let challenge = crate::challenge::Challenge {
             title: "Benign".to_string(),
-            target: "10.129.187.71".to_string(),
+            target: "192.0.2.71".to_string(),
             task_text: "Identify and investigate an infected host.".to_string(),
             ..crate::challenge::Challenge::default()
         };

@@ -503,14 +503,14 @@ mod tests {
     #[test]
     fn agent_prompt_stays_small_for_1024_context_servers() {
         let challenge = Challenge {
-            target: "10.129.187.71".to_string(),
+            target: "192.0.2.71".to_string(),
             task_text:
                 "Find the suspicious activity and answer the room questions.\nWhat is the flag?"
                     .repeat(20),
             notes: "Use authorized TryHackMe scope only.".repeat(20),
             ..Challenge::default()
         };
-        let observations = "503 GET 11 32w 332c http://10.129.187.71/noisy\n".repeat(1_000);
+        let observations = "503 GET 11 32w 332c http://192.0.2.71/noisy\n".repeat(1_000);
 
         let prompt = build_agent_user_prompt(&challenge, &observations);
 
@@ -519,7 +519,7 @@ mod tests {
             "agent prompt should fit low-context local servers, got {} bytes",
             prompt.len()
         );
-        assert!(prompt.contains("10.129.187.71"));
+        assert!(prompt.contains("192.0.2.71"));
         assert!(prompt.contains("older output truncated"));
     }
 
@@ -527,7 +527,7 @@ mod tests {
     fn analysis_prompt_stays_small_for_1024_context_servers() {
         let challenge = Challenge {
             title: "Benign".to_string(),
-            target: "10.129.187.71".to_string(),
+            target: "192.0.2.71".to_string(),
             task_text: "Question?\nFlag?".repeat(30),
             notes: "Lots of noisy tool output already happened.".repeat(20),
             ..Challenge::default()
