@@ -15,6 +15,7 @@ mod settings;
 mod strategy;
 mod thm;
 mod tools;
+pub mod workflow_packs;
 mod workflows;
 
 fn main() -> eframe::Result<()> {
