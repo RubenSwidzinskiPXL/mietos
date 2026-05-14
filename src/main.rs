@@ -10,6 +10,7 @@ mod model;
 mod osint;
 mod planner;
 mod playbooks;
+mod runtime;
 mod settings;
 mod strategy;
 mod thm;
