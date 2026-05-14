@@ -9,7 +9,7 @@ use crate::model::ModelClient;
 use crate::osint;
 use crate::planner::{self, PlannedStage};
 use crate::playbooks;
-use crate::runtime::RuntimeJobs;
+use crate::runtime::{RuntimeJobs, RuntimeQueue};
 use crate::settings::{AppSettings, SafetyMode, default_config_path};
 use crate::strategy::{self, ChallengeKind};
 use crate::thm;
@@ -17,7 +17,6 @@ use crate::tools;
 use crate::workflows::{Workflow, http_url, target_host};
 use crossbeam_channel::{Receiver, Sender, unbounded};
 use eframe::egui::{self, Color32, Frame, RichText, Stroke, TextEdit, Visuals};
-use std::collections::VecDeque;
 use std::fs;
 use std::path::PathBuf;
 use std::process::Command;
@@ -39,12 +38,6 @@ enum Page {
     Knowledge,
     Osint,
     Tools,
-}
-
-#[derive(Clone, Debug)]
-struct QueuedCommand {
-    label: String,
-    command: String,
 }
 
 pub struct OperatorApp {
@@ -77,7 +70,7 @@ pub struct OperatorApp {
     running_jobs: usize,
     vpn_status: String,
     workflow_active: bool,
-    pending_commands: VecDeque<QueuedCommand>,
+    pending_commands: RuntimeQueue,
     smart_run_active: bool,
     planned_stages: Vec<PlannedStage>,
     current_stage: String,
@@ -136,7 +129,7 @@ impl OperatorApp {
             running_jobs: 0,
             vpn_status: "unknown".to_string(),
             workflow_active: false,
-            pending_commands: VecDeque::new(),
+            pending_commands: RuntimeQueue::default(),
             smart_run_active: false,
             planned_stages: Vec::new(),
             current_stage: "idle".to_string(),
@@ -342,16 +335,23 @@ impl OperatorApp {
             self.status = "Add a target before starting the smart run".to_string();
             return;
         }
+        let stages = planner::plan_challenge(&self.challenge);
+        if stages.is_empty() {
+            self.status = "Planner did not produce any stages".to_string();
+            return;
+        }
         if let Some(error) = safety_mode_action_error(self.settings.safety_mode, "Smart Full Run") {
             self.status = error;
             return;
         }
-        if !self.require_authorized_scope("Smart Full Run") {
+        if let Some(blocked) = stages
+            .iter()
+            .find_map(|stage| safety_mode_workflow_error(self.settings.safety_mode, stage.workflow))
+        {
+            self.status = blocked;
             return;
         }
-        let stages = planner::plan_challenge(&self.challenge);
-        if stages.is_empty() {
-            self.status = "Planner did not produce any stages".to_string();
+        if !self.require_authorized_scope("Smart Full Run") {
             return;
         }
         self.smart_run_active = true;
@@ -393,14 +393,11 @@ impl OperatorApp {
     }
 
     fn enqueue_command(&mut self, label: &str, command: String) {
-        self.pending_commands.push_back(QueuedCommand {
-            label: label.to_string(),
-            command,
-        });
+        self.pending_commands.push(label, command);
     }
 
     fn run_next_queued_command(&mut self) -> bool {
-        let Some(next) = self.pending_commands.pop_front() else {
+        let Some(next) = self.pending_commands.pop_next() else {
             return false;
         };
         self.current_stage = next.label.clone();
@@ -518,6 +515,17 @@ impl OperatorApp {
         self.page = Page::Operator;
     }
 
+    fn start_agent_step_once(&mut self) {
+        if let Some(error) = safety_mode_action_error(self.settings.safety_mode, "agent step") {
+            self.status = error;
+            return;
+        }
+        if !self.require_authorized_scope("agent step") {
+            return;
+        }
+        self.agent_step();
+    }
+
     fn start_goal_agent(&mut self) {
         if let Some(error) = goal_start_validation_error(&self.challenge, &self.goal_text) {
             self.status = error.to_string();
@@ -548,6 +556,14 @@ impl OperatorApp {
         self.extract_findings();
         let bootstraps = goal_bootstrap_workflows(&self.challenge);
         if !bootstraps.is_empty() && self.terminal.trim().is_empty() {
+            if let Some(blocked) = bootstraps.iter().find_map(|workflow| {
+                safety_mode_workflow_error(self.settings.safety_mode, *workflow)
+            }) {
+                self.goal_active = false;
+                self.goal_remaining = 0;
+                self.status = blocked;
+                return;
+            }
             self.workflow_active = true;
             self.current_stage = "Goal Agent Bootstrap".to_string();
             self.planned_stages = bootstraps
@@ -1181,7 +1197,7 @@ impl eframe::App for OperatorApp {
                     self.pause_goal_agent();
                 }
                 if ui.button("Agent Step").clicked() {
-                    self.agent_step();
+                    self.start_agent_step_once();
                 }
                 if ui.button("Start Auto").clicked() {
                     self.start_auto_steps();
@@ -1200,6 +1216,7 @@ impl eframe::App for OperatorApp {
                             self.goal_remaining = 0;
                             self.goal_stop_reason = "stopped by operator".to_string();
                             self.active_job = "idle".to_string();
+                            self.runtime_jobs = RuntimeJobs::default();
                             self.current_stage = "idle".to_string();
                             self.status = "Stopped tracked Kali jobs".to_string();
                         }
@@ -1465,9 +1482,7 @@ impl OperatorApp {
                 }
             }
             if ui.button("Agent Step").clicked() {
-                if self.require_authorized_scope("agent step") {
-                    self.agent_step();
-                }
+                self.start_agent_step_once();
             }
             if ui.button("Extract Findings").clicked() {
                 self.extract_findings();
@@ -2824,6 +2839,44 @@ mod tests {
             safety_mode_action_error(SafetyMode::AuthorizedLab, "Goal Agent"),
             None
         );
+    }
+
+    #[test]
+    fn internal_audit_blocks_exploit_stages_selected_by_smart_run() {
+        let stages = vec![
+            crate::planner::PlannedStage {
+                workflow: crate::workflows::Workflow::Recon,
+                reason: "first".to_string(),
+            },
+            crate::planner::PlannedStage {
+                workflow: crate::workflows::Workflow::ExploitPath,
+                reason: "blocked".to_string(),
+            },
+        ];
+
+        let blocked = stages
+            .iter()
+            .find_map(|stage| safety_mode_workflow_error(SafetyMode::InternalAudit, stage.workflow))
+            .expect("internal audit blocks exploit stage");
+
+        assert!(blocked.contains("Internal Audit"));
+        assert!(blocked.contains("Exploit Path"));
+    }
+
+    #[test]
+    fn internal_audit_blocks_pwn_goal_bootstrap_workflow() {
+        let challenge = crate::challenge::Challenge {
+            target: "10.10.10.5".to_string(),
+            task_text: "Exploit development with pwntools and GDB.".to_string(),
+            ..crate::challenge::Challenge::default()
+        };
+
+        let blocked = goal_bootstrap_workflows(&challenge)
+            .iter()
+            .find_map(|workflow| safety_mode_workflow_error(SafetyMode::InternalAudit, *workflow))
+            .expect("internal audit blocks pwn bootstrap");
+
+        assert!(blocked.contains("Pwn / Binary Exploit"));
     }
 
     #[test]

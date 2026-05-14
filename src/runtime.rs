@@ -20,6 +20,17 @@ pub struct RuntimeJobs {
     active: Vec<String>,
 }
 
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct QueuedCommand {
+    pub label: String,
+    pub command: String,
+}
+
+#[derive(Clone, Debug, Default, Eq, PartialEq)]
+pub struct RuntimeQueue {
+    pending: std::collections::VecDeque<QueuedCommand>,
+}
+
 impl RuntimeJobs {
     pub fn start(&mut self, job: impl Into<String>) -> JobSnapshot {
         let job = job.into();
@@ -45,9 +56,34 @@ impl RuntimeJobs {
     }
 }
 
+impl RuntimeQueue {
+    pub fn push(&mut self, label: impl Into<String>, command: impl Into<String>) {
+        self.pending.push_back(QueuedCommand {
+            label: label.into(),
+            command: command.into(),
+        });
+    }
+
+    pub fn pop_next(&mut self) -> Option<QueuedCommand> {
+        self.pending.pop_front()
+    }
+
+    pub fn clear(&mut self) {
+        self.pending.clear();
+    }
+
+    pub fn len(&self) -> usize {
+        self.pending.len()
+    }
+
+    pub fn retain(&mut self, mut keep: impl FnMut(&QueuedCommand) -> bool) {
+        self.pending.retain(|queued| keep(queued));
+    }
+}
+
 #[cfg(test)]
 mod tests {
-    use super::RuntimeJobs;
+    use super::{RuntimeJobs, RuntimeQueue};
 
     #[test]
     fn starting_job_reports_active_label_and_count() {
@@ -97,5 +133,30 @@ mod tests {
         assert_eq!(snapshot.active_job, "idle");
         assert_eq!(snapshot.running_jobs, 0);
         assert_eq!(snapshot.status_message, "missing finished");
+    }
+
+    #[test]
+    fn runtime_queue_preserves_fifo_order_and_count() {
+        let mut queue = RuntimeQueue::default();
+        queue.push("Recon", "nmap");
+        queue.push("Web", "curl");
+
+        assert_eq!(queue.len(), 2);
+        assert_eq!(queue.pop_next().expect("first").label, "Recon");
+        assert_eq!(queue.pop_next().expect("second").command, "curl");
+        assert_eq!(queue.len(), 0);
+    }
+
+    #[test]
+    fn runtime_queue_can_retain_useful_follow_up_work() {
+        let mut queue = RuntimeQueue::default();
+        queue.push("Web Enum", "ffuf");
+        queue.push("SIEM", "splunk search");
+
+        queue.retain(|queued| queued.label == "SIEM");
+
+        let next = queue.pop_next().expect("remaining command");
+        assert_eq!(next.label, "SIEM");
+        assert!(queue.pop_next().is_none());
     }
 }
