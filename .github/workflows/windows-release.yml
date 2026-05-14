@@ -1,0 +1,46 @@
+name: Windows Release Build
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_label:
+        description: "Label to include in the artifact name"
+        required: false
+        default: "manual"
+
+permissions:
+  contents: read
+
+env:
+  CARGO_TERM_COLOR: always
+  BINARY_NAME: mietos
+
+jobs:
+  build-windows:
+    name: Build Windows executable
+    runs-on: windows-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install stable Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Build release binary
+        run: cargo build --locked --release
+
+      - name: Prepare artifact bundle
+        shell: pwsh
+        run: |
+          $bundle = "dist"
+          New-Item -ItemType Directory -Force -Path $bundle | Out-Null
+          Copy-Item "target\release\$env:BINARY_NAME.exe" "$bundle\$env:BINARY_NAME.exe"
+          Compress-Archive -Path "$bundle\$env:BINARY_NAME.exe" -DestinationPath "$bundle\$env:BINARY_NAME-windows-${{ github.event.inputs.release_label }}.zip" -Force
+
+      - name: Upload zipped executable
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.BINARY_NAME }}-windows-${{ github.event.inputs.release_label }}
+          path: dist/${{ env.BINARY_NAME }}-windows-${{ github.event.inputs.release_label }}.zip
+          if-no-files-found: error

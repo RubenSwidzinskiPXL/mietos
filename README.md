@@ -120,6 +120,14 @@ cargo test -- --nocapture
 cargo build --release
 ```
 
+## CI And Release Builds
+
+GitHub Actions runs Rust formatting, tests, and a release build on pushes and pull requests. A separate manual Windows release workflow builds `mietos.exe`, zips it, and uploads the zip as a workflow artifact.
+
+Release artifacts should contain only the built executable. Do not publish local memory databases, runtime state, scan logs, captures, credentials, flags, customer notes, or other investigation evidence.
+
+See [docs/ci.md](docs/ci.md) for the workflow details and local preflight commands.
+
 ## Project Name
 
 The project name is `mietos`.
