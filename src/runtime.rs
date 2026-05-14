@@ -8,10 +8,7 @@ pub struct JobSnapshot {
 impl JobSnapshot {
     fn from_active(active: &[String], status_message: String) -> Self {
         Self {
-            active_job: active
-                .last()
-                .cloned()
-                .unwrap_or_else(|| "idle".to_string()),
+            active_job: active.last().cloned().unwrap_or_else(|| "idle".to_string()),
             running_jobs: active.len(),
             status_message,
         }
@@ -85,7 +82,10 @@ mod tests {
 
         assert_eq!(snapshot.active_job, "scan");
         assert_eq!(snapshot.running_jobs, 1);
-        assert_eq!(snapshot.status_message, "model analysis finished; 1 still running");
+        assert_eq!(
+            snapshot.status_message,
+            "model analysis finished; 1 still running"
+        );
     }
 
     #[test]
