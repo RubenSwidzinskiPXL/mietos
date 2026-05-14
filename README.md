@@ -120,6 +120,15 @@ cargo test -- --nocapture
 cargo build --release
 ```
 
+## Documentation
+
+- [Setup Guide](docs/SETUP.md)
+- [Workflow Packs](docs/WORKFLOW_PACKS.md)
+- [CI And Release Builds](docs/ci.md)
+- [Release Builds](docs/RELEASES.md)
+- [Screenshot Plan](docs/SCREENSHOTS.md)
+- [Public Hardening Roadmap](docs/ROADMAP.md)
+
 ## CI And Release Builds
 
 GitHub Actions runs Rust formatting, tests, and a release build on pushes and pull requests. A separate manual Windows release workflow builds `mietos.exe`, zips it, and uploads the zip as a workflow artifact.
