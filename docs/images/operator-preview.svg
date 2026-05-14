@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1320" height="860" viewBox="0 0 1320 860" role="img" aria-labelledby="title desc">
+  <title id="title">Operator UI preview mock screenshot</title>
+  <desc id="desc">Sanitized mock preview of live operator output with synthetic command statuses and model trace.</desc>
+  <rect width="1320" height="860" fill="#f5f7fb"/>
+  <rect x="24" y="24" width="1272" height="812" rx="14" fill="#ffffff" stroke="#cfd7e6"/>
+  <rect x="24" y="24" width="1272" height="56" rx="14" fill="#1f2937"/>
+  <text x="52" y="59" font-family="Segoe UI, Arial, sans-serif" font-size="21" font-weight="700" fill="#ffffff">mietos</text>
+  <text x="162" y="58" font-family="Segoe UI, Arial, sans-serif" font-size="13" fill="#cbd5e1">UI PREVIEW - MOCK SCREENSHOT - SANITIZED DOCUMENTATION ASSET</text>
+  <rect x="44" y="104" width="218" height="708" rx="8" fill="#eef2f7"/>
+  <text x="68" y="146" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="700" fill="#334155">Navigation</text>
+  <text x="82" y="198" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#475569">Setup</text>
+  <text x="82" y="248" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#475569">Challenge</text>
+  <rect x="60" y="272" width="174" height="38" rx="6" fill="#dbeafe"/>
+  <text x="82" y="296" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#1d4ed8">Operator</text>
+  <text x="82" y="344" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#475569">Results</text>
+  <text x="82" y="392" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#475569">OSINT</text>
+  <text x="302" y="140" font-family="Segoe UI, Arial, sans-serif" font-size="32" font-weight="700" fill="#111827">Operator</text>
+  <text x="302" y="170" font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#64748b">Watch bounded commands, synthetic output, and model reasoning trace.</text>
+  <rect x="302" y="208" width="590" height="472" rx="8" fill="#0f172a" stroke="#1e293b"/>
+  <text x="330" y="246" font-family="Consolas, monospace" font-size="14" fill="#93c5fd">$ run passive-check --scope demo-lab</text>
+  <text x="330" y="276" font-family="Consolas, monospace" font-size="14" fill="#cbd5e1">[ok] scope token: placeholder-approved</text>
+  <text x="330" y="306" font-family="Consolas, monospace" font-size="14" fill="#cbd5e1">[ok] collected synthetic service banner</text>
+  <text x="330" y="336" font-family="Consolas, monospace" font-size="14" fill="#cbd5e1">[skip] intrusive checks require explicit workflow</text>
+  <text x="330" y="366" font-family="Consolas, monospace" font-size="14" fill="#86efac">[done] evidence saved as mock finding card</text>
+  <text x="330" y="430" font-family="Consolas, monospace" font-size="14" fill="#64748b">All lines are sanitized placeholder output.</text>
+  <rect x="922" y="208" width="312" height="472" rx="8" fill="#f8fafc" stroke="#d8e0ee"/>
+  <text x="950" y="246" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="700" fill="#111827">Model trace</text>
+  <rect x="950" y="272" width="236" height="76" rx="6" fill="#ffffff" stroke="#cbd5e1"/>
+  <text x="970" y="304" font-family="Segoe UI, Arial, sans-serif" font-size="13" fill="#334155">Plan: passive first, evidence</text>
+  <text x="970" y="326" font-family="Segoe UI, Arial, sans-serif" font-size="13" fill="#334155">before conclusions.</text>
+  <rect x="950" y="370" width="236" height="76" rx="6" fill="#ffffff" stroke="#cbd5e1"/>
+  <text x="970" y="402" font-family="Segoe UI, Arial, sans-serif" font-size="13" fill="#334155">Command: allowed synthetic</text>
+  <text x="970" y="424" font-family="Segoe UI, Arial, sans-serif" font-size="13" fill="#334155">demo workflow.</text>
+  <rect x="950" y="468" width="236" height="76" rx="6" fill="#ffffff" stroke="#cbd5e1"/>
+  <text x="970" y="500" font-family="Segoe UI, Arial, sans-serif" font-size="13" fill="#334155">Next: summarize findings</text>
+  <text x="970" y="522" font-family="Segoe UI, Arial, sans-serif" font-size="13" fill="#334155">without unsupported claims.</text>
+  <rect x="302" y="710" width="160" height="40" rx="6" fill="#dc2626"/>
+  <text x="350" y="736" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="700" fill="#ffffff">Stop</text>
+  <rect x="486" y="710" width="160" height="40" rx="6" fill="#ffffff" stroke="#cbd5e1"/>
+  <text x="522" y="736" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#334155">Save trace</text>
+</svg>

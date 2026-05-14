@@ -126,8 +126,19 @@ cargo build --release
 - [Workflow Packs](docs/WORKFLOW_PACKS.md)
 - [CI And Release Builds](docs/ci.md)
 - [Release Builds](docs/RELEASES.md)
-- [Screenshot Plan](docs/SCREENSHOTS.md)
+- [Sanitized UI Previews](docs/SCREENSHOTS.md)
 - [Public Hardening Roadmap](docs/ROADMAP.md)
+
+## UI Previews
+
+These are sanitized mock screenshots for documentation only, not real target
+evidence or captures from an assessment.
+
+![Mock UI preview of the Setup page](docs/images/setup-preview.svg)
+![Mock UI preview of the Challenge page](docs/images/challenge-preview.svg)
+![Mock UI preview of the Operator page](docs/images/operator-preview.svg)
+![Mock UI preview of the Results page](docs/images/results-preview.svg)
+![Mock UI preview of the OSINT page](docs/images/osint-preview.svg)
 
 ## CI And Release Builds
 

@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1320" height="860" viewBox="0 0 1320 860" role="img" aria-labelledby="title desc">
+  <title id="title">Results UI preview mock screenshot</title>
+  <desc id="desc">Sanitized mock preview of results cards using placeholder findings and no real flags.</desc>
+  <rect width="1320" height="860" fill="#f5f7fb"/>
+  <rect x="24" y="24" width="1272" height="812" rx="14" fill="#ffffff" stroke="#cfd7e6"/>
+  <rect x="24" y="24" width="1272" height="56" rx="14" fill="#1f2937"/>
+  <text x="52" y="59" font-family="Segoe UI, Arial, sans-serif" font-size="21" font-weight="700" fill="#ffffff">mietos</text>
+  <text x="162" y="58" font-family="Segoe UI, Arial, sans-serif" font-size="13" fill="#cbd5e1">UI PREVIEW - MOCK SCREENSHOT - SANITIZED DOCUMENTATION ASSET</text>
+  <rect x="44" y="104" width="218" height="708" rx="8" fill="#eef2f7"/>
+  <text x="68" y="146" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="700" fill="#334155">Navigation</text>
+  <text x="82" y="198" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#475569">Setup</text>
+  <text x="82" y="248" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#475569">Challenge</text>
+  <text x="82" y="296" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#475569">Operator</text>
+  <rect x="60" y="320" width="174" height="38" rx="6" fill="#dbeafe"/>
+  <text x="82" y="344" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#1d4ed8">Results</text>
+  <text x="82" y="392" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#475569">OSINT</text>
+  <text x="302" y="140" font-family="Segoe UI, Arial, sans-serif" font-size="32" font-weight="700" fill="#111827">Results</text>
+  <text x="302" y="170" font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#64748b">Answer cards, evidence notes, and lessons from a sanitized demo run.</text>
+  <rect x="302" y="208" width="284" height="128" rx="8" fill="#f8fafc" stroke="#d8e0ee"/>
+  <text x="330" y="246" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="700" fill="#111827">Answer card</text>
+  <text x="330" y="276" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#475569">Status: placeholder conclusion</text>
+  <text x="330" y="302" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#64748b">Confidence: evidence-backed</text>
+  <rect x="618" y="208" width="284" height="128" rx="8" fill="#f8fafc" stroke="#d8e0ee"/>
+  <text x="646" y="246" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="700" fill="#111827">Flags</text>
+  <text x="646" y="276" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#475569">None shown in public docs</text>
+  <text x="646" y="302" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#64748b">No secrets or challenge tokens</text>
+  <rect x="934" y="208" width="300" height="128" rx="8" fill="#f8fafc" stroke="#d8e0ee"/>
+  <text x="962" y="246" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="700" fill="#111827">Evidence</text>
+  <text x="962" y="276" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#475569">Synthetic log references only</text>
+  <text x="962" y="302" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#64748b">No target identifiers</text>
+  <rect x="302" y="372" width="932" height="254" rx="8" fill="#f8fafc" stroke="#d8e0ee"/>
+  <text x="330" y="410" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="700" fill="#111827">Grouped findings</text>
+  <rect x="330" y="434" width="852" height="50" rx="6" fill="#ffffff" stroke="#cbd5e1"/>
+  <text x="350" y="465" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#334155">Finding A: demo service exposes a harmless training banner.</text>
+  <rect x="330" y="500" width="852" height="50" rx="6" fill="#ffffff" stroke="#cbd5e1"/>
+  <text x="350" y="531" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#334155">Finding B: workflow stopped before intrusive checks.</text>
+  <rect x="330" y="566" width="852" height="50" rx="6" fill="#ffffff" stroke="#cbd5e1"/>
+  <text x="350" y="597" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#334155">Finding C: recommendation is defensive validation only.</text>
+  <rect x="302" y="660" width="932" height="88" rx="8" fill="#ecfdf5" stroke="#bbf7d0"/>
+  <text x="330" y="694" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="700" fill="#166534">Lesson saved</text>
+  <text x="330" y="720" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#334155">Prefer passive collection before drawing conclusions from local lab notes.</text>
+</svg>

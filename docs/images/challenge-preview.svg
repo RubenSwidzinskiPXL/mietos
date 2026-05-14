@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1320" height="860" viewBox="0 0 1320 860" role="img" aria-labelledby="title desc">
+  <title id="title">Challenge UI preview mock screenshot</title>
+  <desc id="desc">Sanitized mock preview of challenge intake with placeholder authorized scope and task text.</desc>
+  <rect width="1320" height="860" fill="#f5f7fb"/>
+  <rect x="24" y="24" width="1272" height="812" rx="14" fill="#ffffff" stroke="#cfd7e6"/>
+  <rect x="24" y="24" width="1272" height="56" rx="14" fill="#1f2937"/>
+  <text x="52" y="59" font-family="Segoe UI, Arial, sans-serif" font-size="21" font-weight="700" fill="#ffffff">mietos</text>
+  <text x="162" y="58" font-family="Segoe UI, Arial, sans-serif" font-size="13" fill="#cbd5e1">UI PREVIEW - MOCK SCREENSHOT - SANITIZED DOCUMENTATION ASSET</text>
+  <rect x="44" y="104" width="218" height="708" rx="8" fill="#eef2f7"/>
+  <text x="68" y="146" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="700" fill="#334155">Navigation</text>
+  <text x="82" y="198" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#475569">Setup</text>
+  <rect x="60" y="224" width="174" height="38" rx="6" fill="#dbeafe"/>
+  <text x="82" y="248" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#1d4ed8">Challenge</text>
+  <text x="82" y="296" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#475569">Operator</text>
+  <text x="82" y="344" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#475569">Results</text>
+  <text x="82" y="392" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#475569">OSINT</text>
+  <text x="302" y="140" font-family="Segoe UI, Arial, sans-serif" font-size="32" font-weight="700" fill="#111827">Challenge Intake</text>
+  <text x="302" y="170" font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#64748b">Define the allowed scope before any operator workflow starts.</text>
+  <rect x="302" y="208" width="932" height="84" rx="8" fill="#f8fafc" stroke="#d8e0ee"/>
+  <text x="330" y="246" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="700" fill="#111827">Authorized scope</text>
+  <rect x="330" y="258" width="18" height="18" rx="3" fill="#2563eb"/>
+  <path d="M334 267 l5 5 l10 -12" fill="none" stroke="#ffffff" stroke-width="3"/>
+  <text x="362" y="273" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#334155">I confirm this is an owned lab, enrolled challenge, or approved audit scope.</text>
+  <rect x="302" y="318" width="452" height="322" rx="8" fill="#f8fafc" stroke="#d8e0ee"/>
+  <text x="330" y="356" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="700" fill="#111827">Task</text>
+  <rect x="330" y="374" width="370" height="214" rx="6" fill="#ffffff" stroke="#cbd5e1"/>
+  <text x="350" y="406" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#475569">Review the demo service notes and identify</text>
+  <text x="350" y="430" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#475569">safe next steps for an authorized lab.</text>
+  <text x="350" y="478" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#64748b">No live target, secrets, or real evidence.</text>
+  <rect x="782" y="318" width="452" height="322" rx="8" fill="#f8fafc" stroke="#d8e0ee"/>
+  <text x="810" y="356" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="700" fill="#111827">Notes</text>
+  <rect x="810" y="374" width="370" height="214" rx="6" fill="#ffffff" stroke="#cbd5e1"/>
+  <text x="830" y="406" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#475569">Evidence policy: terminal-backed only</text>
+  <text x="830" y="430" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#475569">Credentials: none</text>
+  <text x="830" y="454" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#475569">Flags: none</text>
+  <text x="830" y="478" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#475569">Target labels: redacted demo placeholders</text>
+  <rect x="302" y="670" width="932" height="76" rx="8" fill="#eff6ff" stroke="#bfdbfe"/>
+  <text x="330" y="704" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="700" fill="#1d4ed8">Detected questions</text>
+  <text x="330" y="728" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#334155">Scope confirmed, workflow candidates prepared, evidence requirements visible.</text>
+</svg>

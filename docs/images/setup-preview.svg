@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1320" height="860" viewBox="0 0 1320 860" role="img" aria-labelledby="title desc">
+  <title id="title">Setup UI preview mock screenshot</title>
+  <desc id="desc">Sanitized mock preview of the mietos Setup page with no real targets, credentials, IP addresses, or personal paths.</desc>
+  <rect width="1320" height="860" fill="#f5f7fb"/>
+  <rect x="24" y="24" width="1272" height="812" rx="14" fill="#ffffff" stroke="#cfd7e6"/>
+  <rect x="24" y="24" width="1272" height="56" rx="14" fill="#1f2937"/>
+  <text x="52" y="59" font-family="Segoe UI, Arial, sans-serif" font-size="21" font-weight="700" fill="#ffffff">mietos</text>
+  <text x="162" y="58" font-family="Segoe UI, Arial, sans-serif" font-size="13" fill="#cbd5e1">UI PREVIEW - MOCK SCREENSHOT - SANITIZED DOCUMENTATION ASSET</text>
+  <rect x="44" y="104" width="218" height="708" rx="8" fill="#eef2f7"/>
+  <text x="68" y="146" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="700" fill="#334155">Navigation</text>
+  <rect x="60" y="174" width="174" height="38" rx="6" fill="#dbeafe"/>
+  <text x="82" y="198" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#1d4ed8">Setup</text>
+  <text x="82" y="248" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#475569">Challenge</text>
+  <text x="82" y="296" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#475569">Operator</text>
+  <text x="82" y="344" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#475569">Results</text>
+  <text x="82" y="392" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#475569">OSINT</text>
+  <text x="302" y="140" font-family="Segoe UI, Arial, sans-serif" font-size="32" font-weight="700" fill="#111827">Setup</text>
+  <text x="302" y="170" font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#64748b">Configure local model access and authorized lab runner settings.</text>
+  <rect x="302" y="208" width="932" height="126" rx="8" fill="#f8fafc" stroke="#d8e0ee"/>
+  <text x="330" y="246" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="700" fill="#111827">Model endpoint</text>
+  <rect x="330" y="264" width="852" height="42" rx="6" fill="#ffffff" stroke="#cbd5e1"/>
+  <text x="350" y="291" font-family="Consolas, monospace" font-size="14" fill="#475569">local OpenAI-compatible chat endpoint configured</text>
+  <rect x="302" y="360" width="452" height="150" rx="8" fill="#f8fafc" stroke="#d8e0ee"/>
+  <text x="330" y="398" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="700" fill="#111827">Kali runner</text>
+  <rect x="330" y="420" width="370" height="38" rx="6" fill="#ffffff" stroke="#cbd5e1"/>
+  <text x="350" y="445" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#475569">Distro: configured lab environment</text>
+  <rect x="330" y="470" width="148" height="32" rx="6" fill="#0f766e"/>
+  <text x="354" y="491" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#ffffff">Check tools</text>
+  <rect x="782" y="360" width="452" height="150" rx="8" fill="#f8fafc" stroke="#d8e0ee"/>
+  <text x="810" y="398" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="700" fill="#111827">Safety mode</text>
+  <rect x="810" y="420" width="370" height="38" rx="6" fill="#ecfdf5" stroke="#86efac"/>
+  <text x="830" y="445" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#166534">Authorized lab scope required</text>
+  <rect x="302" y="538" width="932" height="112" rx="8" fill="#f8fafc" stroke="#d8e0ee"/>
+  <text x="330" y="576" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="700" fill="#111827">Storage</text>
+  <text x="330" y="606" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#475569">Runtime memory stored in the user-selected local data location.</text>
+  <rect x="302" y="682" width="160" height="40" rx="6" fill="#2563eb"/>
+  <text x="336" y="708" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="700" fill="#ffffff">Save settings</text>
+  <rect x="486" y="682" width="148" height="40" rx="6" fill="#ffffff" stroke="#cbd5e1"/>
+  <text x="521" y="708" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#334155">Reset form</text>
+</svg>

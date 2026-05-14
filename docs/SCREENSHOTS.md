@@ -1,28 +1,28 @@
 # Screenshots
 
-Screenshots are intentionally not committed yet. The app is still moving quickly, and stale screenshots are worse than none.
+This repository includes sanitized SVG UI previews instead of real target evidence.
+They are mock screenshots for documentation only, not captures from an active
+assessment, lab run, customer environment, or real target.
 
-Recommended first screenshot set:
+Every preview uses placeholder labels and avoids real flags, credentials, IP
+addresses, private paths, personal data, customer names, and target identifiers.
 
-1. `setup-safety-mode.png`
-   - Setup page showing model endpoint, Kali distro, safety mode, and Save Settings.
+## Preview Set
 
-2. `challenge-intake.png`
-   - Challenge page showing target, authorized-scope checkbox, task text, notes, and detected questions.
+| Area | Preview |
+| --- | --- |
+| Setup | ![Mock UI preview of the Setup page](images/setup-preview.svg) |
+| Challenge | ![Mock UI preview of the Challenge page](images/challenge-preview.svg) |
+| Operator | ![Mock UI preview of the Operator page](images/operator-preview.svg) |
+| Results | ![Mock UI preview of the Results page](images/results-preview.svg) |
+| OSINT | ![Mock UI preview of the OSINT page](images/osint-preview.svg) |
 
-3. `operator-live-run.png`
-   - Operator page showing live Kali terminal output and model trace.
+## Asset Rules
 
-4. `results-findings.png`
-   - Results page showing answer cards and grouped findings.
-
-5. `osint-studio.png`
-   - OSINT page showing passive workflows and tool guide.
-
-## Capture Guidelines
-
-- Use a toy target, local lab, or redacted demo.
-- Do not include real flags, customer data, credentials, private URLs, VPN config names, or model paths.
-- Prefer a 16:9 window around 1320x860.
-- Store final screenshots under `docs/images/`.
-- Reference them from README only after they are current.
+- Treat these SVGs as documentation previews, not operational evidence.
+- Keep the visible "UI PREVIEW - MOCK SCREENSHOT" label in every asset.
+- Use only synthetic task text, synthetic findings, and placeholder statuses.
+- Do not include real flags, credentials, IP addresses, private URLs, VPN config
+  names, model paths, scan output, customer notes, or personal filesystem paths.
+- If real screenshots are added later, store them separately and verify that all
+  sensitive data is redacted before publishing.

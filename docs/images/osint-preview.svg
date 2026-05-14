@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1320" height="860" viewBox="0 0 1320 860" role="img" aria-labelledby="title desc">
+  <title id="title">OSINT UI preview mock screenshot</title>
+  <desc id="desc">Sanitized mock preview of OSINT workflow controls with passive placeholder sources.</desc>
+  <rect width="1320" height="860" fill="#f5f7fb"/>
+  <rect x="24" y="24" width="1272" height="812" rx="14" fill="#ffffff" stroke="#cfd7e6"/>
+  <rect x="24" y="24" width="1272" height="56" rx="14" fill="#1f2937"/>
+  <text x="52" y="59" font-family="Segoe UI, Arial, sans-serif" font-size="21" font-weight="700" fill="#ffffff">mietos</text>
+  <text x="162" y="58" font-family="Segoe UI, Arial, sans-serif" font-size="13" fill="#cbd5e1">UI PREVIEW - MOCK SCREENSHOT - SANITIZED DOCUMENTATION ASSET</text>
+  <rect x="44" y="104" width="218" height="708" rx="8" fill="#eef2f7"/>
+  <text x="68" y="146" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="700" fill="#334155">Navigation</text>
+  <text x="82" y="198" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#475569">Setup</text>
+  <text x="82" y="248" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#475569">Challenge</text>
+  <text x="82" y="296" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#475569">Operator</text>
+  <text x="82" y="344" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#475569">Results</text>
+  <rect x="60" y="368" width="174" height="38" rx="6" fill="#dbeafe"/>
+  <text x="82" y="392" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#1d4ed8">OSINT</text>
+  <text x="302" y="140" font-family="Segoe UI, Arial, sans-serif" font-size="32" font-weight="700" fill="#111827">OSINT Studio</text>
+  <text x="302" y="170" font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#64748b">Passive triage controls using placeholder public-source labels.</text>
+  <rect x="302" y="208" width="932" height="96" rx="8" fill="#f8fafc" stroke="#d8e0ee"/>
+  <text x="330" y="246" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="700" fill="#111827">Subject</text>
+  <rect x="330" y="260" width="852" height="30" rx="6" fill="#ffffff" stroke="#cbd5e1"/>
+  <text x="350" y="280" font-family="Segoe UI, Arial, sans-serif" font-size="13" fill="#64748b">redacted organization or demo domain label</text>
+  <rect x="302" y="334" width="284" height="220" rx="8" fill="#f8fafc" stroke="#d8e0ee"/>
+  <text x="330" y="372" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="700" fill="#111827">Passive workflows</text>
+  <text x="330" y="410" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#334155">Public profile map</text>
+  <text x="330" y="442" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#334155">Metadata checklist</text>
+  <text x="330" y="474" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#334155">Source reliability review</text>
+  <text x="330" y="506" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#334155">Defensive exposure notes</text>
+  <rect x="618" y="334" width="284" height="220" rx="8" fill="#f8fafc" stroke="#d8e0ee"/>
+  <text x="646" y="372" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="700" fill="#111827">Tool guide</text>
+  <text x="646" y="410" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#334155">Use passive sources first.</text>
+  <text x="646" y="442" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#334155">Record provenance.</text>
+  <text x="646" y="474" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#334155">Avoid private data capture.</text>
+  <text x="646" y="506" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#334155">Summarize uncertainty.</text>
+  <rect x="934" y="334" width="300" height="220" rx="8" fill="#f8fafc" stroke="#d8e0ee"/>
+  <text x="962" y="372" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="700" fill="#111827">Queue</text>
+  <rect x="962" y="396" width="220" height="34" rx="6" fill="#ffffff" stroke="#cbd5e1"/>
+  <text x="982" y="418" font-family="Segoe UI, Arial, sans-serif" font-size="13" fill="#334155">Review source list</text>
+  <rect x="962" y="444" width="220" height="34" rx="6" fill="#ffffff" stroke="#cbd5e1"/>
+  <text x="982" y="466" font-family="Segoe UI, Arial, sans-serif" font-size="13" fill="#334155">Draft exposure note</text>
+  <rect x="962" y="492" width="220" height="34" rx="6" fill="#ffffff" stroke="#cbd5e1"/>
+  <text x="982" y="514" font-family="Segoe UI, Arial, sans-serif" font-size="13" fill="#334155">Save sanitized summary</text>
+  <rect x="302" y="588" width="932" height="92" rx="8" fill="#fff7ed" stroke="#fed7aa"/>
+  <text x="330" y="624" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="700" fill="#9a3412">Public documentation note</text>
+  <text x="330" y="650" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#334155">Preview contains no live sources, people, organizations, accounts, or target identifiers.</text>
+</svg>
