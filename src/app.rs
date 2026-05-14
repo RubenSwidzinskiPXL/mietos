@@ -321,6 +321,9 @@ impl OperatorApp {
             self.status = "Add a target IP first".to_string();
             return;
         }
+        if !self.require_workflow_safety(workflow) {
+            return;
+        }
         if !self.require_authorized_scope(workflow.label()) {
             return;
         }
@@ -340,6 +343,10 @@ impl OperatorApp {
     fn start_smart_run(&mut self) {
         if self.challenge.target.trim().is_empty() {
             self.status = "Add a target before starting the smart run".to_string();
+            return;
+        }
+        if let Some(error) = safety_mode_action_error(self.settings.safety_mode, "Smart Full Run") {
+            self.status = error;
             return;
         }
         if !self.require_authorized_scope("Smart Full Run") {
@@ -519,6 +526,10 @@ impl OperatorApp {
             self.status = error.to_string();
             return;
         }
+        if let Some(error) = safety_mode_action_error(self.settings.safety_mode, "Goal Agent") {
+            self.status = error;
+            return;
+        }
         if !self.require_authorized_scope("Goal Agent") {
             return;
         }
@@ -571,6 +582,11 @@ impl OperatorApp {
     fn start_goal_step_once(&mut self) {
         if let Some(error) = goal_start_validation_error(&self.challenge, &self.goal_text) {
             self.status = error.to_string();
+            return;
+        }
+        if let Some(error) = safety_mode_action_error(self.settings.safety_mode, "Goal Agent step")
+        {
+            self.status = error;
             return;
         }
         if !self.require_authorized_scope("Goal Agent step") {
@@ -665,6 +681,11 @@ impl OperatorApp {
     }
 
     fn start_auto_steps(&mut self) {
+        if let Some(error) = safety_mode_action_error(self.settings.safety_mode, "auto agent steps")
+        {
+            self.status = error;
+            return;
+        }
         if !self.require_authorized_scope("auto agent steps") {
             return;
         }
@@ -678,6 +699,15 @@ impl OperatorApp {
             self.auto_remaining
         ));
         self.agent_step();
+    }
+
+    fn require_workflow_safety(&mut self, workflow: Workflow) -> bool {
+        if let Some(error) = safety_mode_workflow_error(self.settings.safety_mode, workflow) {
+            self.status = error;
+            false
+        } else {
+            true
+        }
     }
 
     fn require_authorized_scope(&mut self, action: &str) -> bool {
@@ -2323,6 +2353,63 @@ fn authorization_scope_error(confirmed: bool, action: &str) -> Option<String> {
     }
 }
 
+fn safety_mode_workflow_error(mode: SafetyMode, workflow: Workflow) -> Option<String> {
+    if safety_mode_allows_workflow(mode, workflow) {
+        None
+    } else {
+        Some(format!(
+            "{} mode blocks {}. Switch safety mode only when this workflow is explicitly in scope.",
+            mode.label(),
+            workflow.label()
+        ))
+    }
+}
+
+fn safety_mode_action_error(mode: SafetyMode, action: &str) -> Option<String> {
+    if safety_mode_allows_action(mode, action) {
+        None
+    } else {
+        Some(format!(
+            "{} mode blocks {action}. Switch to an authorized active mode only when the target is in scope.",
+            mode.label()
+        ))
+    }
+}
+
+fn safety_mode_allows_action(mode: SafetyMode, action: &str) -> bool {
+    match mode {
+        SafetyMode::FullControl | SafetyMode::AuthorizedLab | SafetyMode::InternalAudit => true,
+        SafetyMode::Passive => {
+            let lower = action.to_ascii_lowercase();
+            lower.contains("osint") || lower.contains("metadata") || lower.contains("defensive")
+        }
+    }
+}
+
+fn safety_mode_allows_workflow(mode: SafetyMode, workflow: Workflow) -> bool {
+    match mode {
+        SafetyMode::FullControl | SafetyMode::AuthorizedLab => true,
+        SafetyMode::Passive => matches!(
+            workflow,
+            Workflow::OsintDomain
+                | Workflow::OsintIdentity
+                | Workflow::OsintThreatIntel
+                | Workflow::OsintMetadata
+                | Workflow::OsintFull
+                | Workflow::DefensiveNotes
+        ),
+        SafetyMode::InternalAudit => !matches!(
+            workflow,
+            Workflow::ExploitPath
+                | Workflow::PwnExploit
+                | Workflow::WebLogin
+                | Workflow::PrivEsc
+                | Workflow::DeepPrivEsc
+                | Workflow::FullRun
+        ),
+    }
+}
+
 fn goal_bootstrap_workflows(challenge: &Challenge) -> Vec<Workflow> {
     match strategy::classify_challenge(challenge) {
         ChallengeKind::Pwn => vec![Workflow::PwnExploit],
@@ -2429,10 +2516,11 @@ mod tests {
         authorization_scope_error, build_run_lesson, case_file_context, command_preview,
         decide_goal_after_command, finding_category, goal_bootstrap_workflows,
         goal_start_validation_error, network_profile_label, osint_operator_guide,
-        runtime_state_json, summarize_local_vpn_status, terminal_display_text,
-        terminal_panel_height,
+        runtime_state_json, safety_mode_action_error, safety_mode_workflow_error,
+        summarize_local_vpn_status, terminal_display_text, terminal_panel_height,
     };
     use crate::challenge::Finding;
+    use crate::settings::SafetyMode;
 
     #[test]
     fn command_preview_hides_multiline_workflow_script() {
@@ -2690,6 +2778,54 @@ mod tests {
         assert!(error.contains("Confirm authorized scope"));
         assert!(error.contains("Smart Full Run"));
         assert_eq!(authorization_scope_error(true, "Smart Full Run"), None);
+    }
+
+    #[test]
+    fn passive_mode_allows_osint_but_blocks_exploit_workflows() {
+        assert_eq!(
+            safety_mode_workflow_error(SafetyMode::Passive, crate::workflows::Workflow::OsintFull),
+            None
+        );
+        let error = safety_mode_workflow_error(
+            SafetyMode::Passive,
+            crate::workflows::Workflow::ExploitPath,
+        )
+        .expect("passive mode blocks exploit path");
+
+        assert!(error.contains("Passive"));
+        assert!(error.contains("Exploit Path"));
+    }
+
+    #[test]
+    fn internal_audit_blocks_lab_only_privesc_but_allows_web_assessment() {
+        assert_eq!(
+            safety_mode_workflow_error(
+                SafetyMode::InternalAudit,
+                crate::workflows::Workflow::WebAssess
+            ),
+            None
+        );
+        let error = safety_mode_workflow_error(
+            SafetyMode::InternalAudit,
+            crate::workflows::Workflow::PrivEsc,
+        )
+        .expect("internal audit blocks privesc");
+
+        assert!(error.contains("Internal Audit"));
+        assert!(error.contains("Privilege Escalation"));
+    }
+
+    #[test]
+    fn passive_mode_blocks_agentic_target_actions() {
+        let error = safety_mode_action_error(SafetyMode::Passive, "Goal Agent")
+            .expect("passive mode blocks agent");
+
+        assert!(error.contains("Passive"));
+        assert!(error.contains("Goal Agent"));
+        assert_eq!(
+            safety_mode_action_error(SafetyMode::AuthorizedLab, "Goal Agent"),
+            None
+        );
     }
 
     #[test]
